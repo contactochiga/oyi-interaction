@@ -28,9 +28,11 @@ export type OyiNavigationItem = { key: string; label: string; href: string };
 export type OyiHistoryPolicy = {
   source: "backend_threads";
   // "unsaved_turns_only": the surface keeps on-device copies only of turns
-  // Backend could not persist (or for signed-out use); never a second
-  // synced history.
-  localFallback: "none" | "unsaved_turns_only";
+  // Backend could not persist (or for signed-out use).
+  // "backend_cache": the surface caches recent Backend thread messages
+  // on-device for fast rehydration; Backend threads always replace it.
+  // Neither is ever a second synced history.
+  localFallback: "none" | "unsaved_turns_only" | "backend_cache";
   maxThreads: number;
 };
 
@@ -62,7 +64,7 @@ export function defineOyiSurfaceAdapter(adapter: OyiSurfaceAdapter): OyiSurfaceA
     if (typeof adapter[fn] !== "function") throw new OyiSurfaceAdapterError(`Surface adapter ${fn} must be a function.`);
   }
   const policy = adapter.historyPolicy;
-  if (!policy || policy.source !== "backend_threads" || !["none", "unsaved_turns_only"].includes(policy.localFallback) || !(policy.maxThreads > 0)) {
+  if (!policy || policy.source !== "backend_threads" || !["none", "unsaved_turns_only", "backend_cache"].includes(policy.localFallback) || !(policy.maxThreads > 0)) {
     throw new OyiSurfaceAdapterError("Surface adapter historyPolicy must use backend_threads with a valid local fallback policy.");
   }
   if (!adapter.uiHints || typeof adapter.uiHints.voiceEntry !== "boolean") throw new OyiSurfaceAdapterError("Surface adapter uiHints.voiceEntry must be boolean.");

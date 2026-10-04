@@ -8,3 +8,5 @@ export type OyiCanonicalProjection = {
     capability_result: string | null;
 };
 export declare function projectCanonicalResponse(response: unknown): OyiCanonicalProjection | null;
+export declare const OYI_EMPTY_RESPONSE_TEXT = "Oyi did not return an answer for this request.";
+export declare function emptyResponseText(response: unknown): string;

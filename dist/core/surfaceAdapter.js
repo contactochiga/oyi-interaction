@@ -19,7 +19,7 @@ export function defineOyiSurfaceAdapter(adapter) {
             throw new OyiSurfaceAdapterError(`Surface adapter ${fn} must be a function.`);
     }
     const policy = adapter.historyPolicy;
-    if (!policy || policy.source !== "backend_threads" || !["none", "unsaved_turns_only"].includes(policy.localFallback) || !(policy.maxThreads > 0)) {
+    if (!policy || policy.source !== "backend_threads" || !["none", "unsaved_turns_only", "backend_cache"].includes(policy.localFallback) || !(policy.maxThreads > 0)) {
         throw new OyiSurfaceAdapterError("Surface adapter historyPolicy must use backend_threads with a valid local fallback policy.");
     }
     if (!adapter.uiHints || typeof adapter.uiHints.voiceEntry !== "boolean")

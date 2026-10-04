@@ -41,6 +41,10 @@ export const OYI_INTERACTION_PHASES = [
 
 export type OyiInteractionPhase = (typeof OYI_INTERACTION_PHASES)[number];
 
+// The only in-flight text a surface may show for a normal HTTP turn. It
+// claims nothing about what Oyi is internally doing.
+export const OYI_WORKING_TEXT = "Working on your request…";
+
 // Backend streams no canonical stages today. Do not add names here until a
 // canonical stream contract delivers them.
 export const OYI_CANONICAL_STREAM_STAGES: readonly string[] = Object.freeze([]);

@@ -2,6 +2,7 @@ import { type OyiActionResultView } from "./actionTruth.js";
 import { type OyiCanonicalProjection } from "./canonicalResponse.js";
 export declare const OYI_INTERACTION_PHASES: readonly ["idle", "listening", "transcribing", "working", "responding", "clarification_required", "confirmation_required", "action_pending", "action_accepted", "action_verifying", "action_verified", "action_unobservable", "action_failed", "action_timed_out", "action_cancelled", "action_superseded", "action_rejected", "degraded", "offline"];
 export type OyiInteractionPhase = (typeof OYI_INTERACTION_PHASES)[number];
+export declare const OYI_WORKING_TEXT = "Working on your request\u2026";
 export declare const OYI_CANONICAL_STREAM_STAGES: readonly string[];
 export type OyiVoiceStatus = "idle" | "listening" | "transcribing" | "error";
 export type OyiTurnFailure = "offline" | "network" | "server" | "timeout";

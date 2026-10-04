@@ -342,3 +342,18 @@ test("cross-surface: committed expectations equal a fresh computation", () => {
   assert.deepEqual(computeInteractionExpectations(core, fixture), committed);
   for (const c of committed.cases) assert.equal(c.restored_action_equal, true, c.id);
 });
+
+test("confirmation proposal: built only from canonical confirmation fields", () => {
+  assert.deepEqual(core.confirmationProposal({ type: "device_command_confirmation", label: "3Gang Living room", channel_code: "switch_2", desired_state: false }), { proposal: "Turn off channel 2 on 3Gang Living room", targetLabel: null });
+  assert.deepEqual(core.confirmationProposal({ type: "device_command_confirmation", label: "Hall Light", desired_state: true }), { proposal: "Turn on Hall Light", targetLabel: null });
+  assert.deepEqual(core.confirmationProposal({ summary: "Pay the service charge", label: "Wallet" }), { proposal: "Pay the service charge", targetLabel: "Wallet" });
+  assert.deepEqual(core.confirmationProposal({ ledger_id: "x" }), { proposal: "Approve this action?", targetLabel: null });
+  assert.equal(core.OYI_WORKING_TEXT, "Working on your request…");
+});
+
+test("empty response text: canonical action truth or an honest statement, never success", () => {
+  assert.equal(core.emptyResponseText({ execution: { status: "read_only" } }), "Oyi did not return an answer for this request.");
+  assert.equal(core.emptyResponseText(fixture.cases.find((c) => c.id === "E").response), "Command accepted. Oyi could not verify the final physical state.");
+  assert.equal(core.emptyResponseText(fixture.cases.find((c) => c.id === "F").response), "Action failed. The command failed. Nothing is confirmed as changed.");
+  assert.equal(core.defineOyiSurfaceAdapter(adapter({ historyPolicy: { source: "backend_threads", localFallback: "backend_cache", maxThreads: 24 } })).historyPolicy.localFallback, "backend_cache");
+});

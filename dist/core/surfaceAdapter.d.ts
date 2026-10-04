@@ -15,7 +15,7 @@ export type OyiNavigationItem = {
 };
 export type OyiHistoryPolicy = {
     source: "backend_threads";
-    localFallback: "none" | "unsaved_turns_only";
+    localFallback: "none" | "unsaved_turns_only" | "backend_cache";
     maxThreads: number;
 };
 export type OyiSurfaceAdapter = {

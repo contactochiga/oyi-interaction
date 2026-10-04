@@ -2,7 +2,7 @@
 // /oyi/runtime/conversation, or a restored thread message) into what the
 // interaction layer may present. Pure: it reads canonical fields only and
 // never infers success, progress or verification.
-import { readCanonicalAction } from "./actionTruth.js";
+import { actionResultView, readCanonicalAction } from "./actionTruth.js";
 function isRecord(value) {
     return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
@@ -36,4 +36,14 @@ export function projectCanonicalResponse(response) {
         persistence_saved: response.persistence_saved !== false,
         capability_result: capabilityResult,
     };
+}
+// Honest text for a turn that returned no reply text: the canonical action
+// truth when there is one, otherwise a plain statement that no answer came
+// back -- never "Done." or "Operational review completed.".
+export const OYI_EMPTY_RESPONSE_TEXT = "Oyi did not return an answer for this request.";
+export function emptyResponseText(response) {
+    const action = actionResultView(response);
+    if (!action)
+        return OYI_EMPTY_RESPONSE_TEXT;
+    return action.detail.startsWith(action.headline) ? action.detail : `${action.headline}. ${action.detail}`;
 }
