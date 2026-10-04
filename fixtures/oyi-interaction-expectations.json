@@ -1,0 +1,340 @@
+{
+  "contract": "oyi.interaction.expectations",
+  "fixture_contract": "oyi.conversation.execution.action",
+  "fixture_version": 1,
+  "cases": [
+    {
+      "id": "A",
+      "matrix": "A",
+      "responding_phase": "responding",
+      "phase": "confirmation_required",
+      "restored_phase": "confirmation_required",
+      "orb": "confirmation",
+      "label": "Oyi is waiting for your confirmation. Nothing has been sent yet",
+      "action": {
+        "status": "awaiting_confirmation",
+        "stage": "proposed",
+        "tone": "awaiting",
+        "headline": "Confirm action?",
+        "detail": "Nothing has been sent yet.",
+        "verified": false,
+        "terminal": false,
+        "awaiting_user": true
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "B",
+      "matrix": "B",
+      "responding_phase": "responding",
+      "phase": "action_pending",
+      "restored_phase": "action_pending",
+      "orb": "action_pending",
+      "label": "Action approved. Not verified yet",
+      "action": {
+        "status": "approved",
+        "stage": "approved",
+        "tone": "progress",
+        "headline": "Approved",
+        "detail": "You approved this action. It has not been confirmed as sent yet.",
+        "verified": false,
+        "terminal": false,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "C",
+      "matrix": "C",
+      "responding_phase": "responding",
+      "phase": "action_unobservable",
+      "restored_phase": "action_unobservable",
+      "orb": "unobservable",
+      "label": "Command accepted. Oyi could not verify the final state",
+      "action": {
+        "status": "unobservable",
+        "stage": "unobservable",
+        "tone": "unverified",
+        "headline": "Command accepted",
+        "detail": "Command accepted. Oyi could not verify the final physical state.",
+        "verified": false,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "C2",
+      "matrix": "C",
+      "responding_phase": "responding",
+      "phase": "action_accepted",
+      "restored_phase": "action_accepted",
+      "orb": "action_pending",
+      "label": "Command accepted. Not verified yet",
+      "action": {
+        "status": "provider_accepted",
+        "stage": "accepted",
+        "tone": "unverified",
+        "headline": "Command accepted",
+        "detail": "Command accepted. Oyi has not verified the physical result yet.",
+        "verified": false,
+        "terminal": false,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "D",
+      "matrix": "D",
+      "responding_phase": "responding",
+      "phase": "action_verified",
+      "restored_phase": "action_verified",
+      "orb": "verified",
+      "label": "Action verified",
+      "action": {
+        "status": "confirmed",
+        "stage": "verified",
+        "tone": "verified",
+        "headline": "Verified",
+        "detail": "Hall Light is on.",
+        "verified": true,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "E",
+      "matrix": "E",
+      "responding_phase": "responding",
+      "phase": "action_unobservable",
+      "restored_phase": "action_unobservable",
+      "orb": "unobservable",
+      "label": "Command accepted. Oyi could not verify the final state",
+      "action": {
+        "status": "unobservable",
+        "stage": "unobservable",
+        "tone": "unverified",
+        "headline": "Command accepted",
+        "detail": "Command accepted. Oyi could not verify the final physical state.",
+        "verified": false,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "F",
+      "matrix": "F",
+      "responding_phase": "responding",
+      "phase": "action_failed",
+      "restored_phase": "action_failed",
+      "orb": "failed",
+      "label": "Action failed",
+      "action": {
+        "status": "failed",
+        "stage": "failed",
+        "tone": "failed",
+        "headline": "Action failed",
+        "detail": "The command failed. Nothing is confirmed as changed.",
+        "verified": false,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "F2",
+      "matrix": "F",
+      "responding_phase": "responding",
+      "phase": "action_failed",
+      "restored_phase": "action_failed",
+      "orb": "failed",
+      "label": "Action failed",
+      "action": {
+        "status": "failed",
+        "stage": "failed",
+        "tone": "failed",
+        "headline": "Action failed",
+        "detail": "The command failed. Nothing is confirmed as changed.",
+        "verified": false,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "G",
+      "matrix": "G",
+      "responding_phase": "responding",
+      "phase": "action_failed",
+      "restored_phase": "action_failed",
+      "orb": "failed",
+      "label": "Action failed",
+      "action": {
+        "status": "failed",
+        "stage": "failed",
+        "tone": "failed",
+        "headline": "Action failed",
+        "detail": "The command failed. Nothing is confirmed as changed.",
+        "verified": false,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "G2",
+      "matrix": "G",
+      "responding_phase": "responding",
+      "phase": "action_timed_out",
+      "restored_phase": "action_timed_out",
+      "orb": "failed",
+      "label": "Action could not be verified in time",
+      "action": {
+        "status": "timed_out",
+        "stage": "timed_out",
+        "tone": "failed",
+        "headline": "Not verified in time",
+        "detail": "Oyi could not verify the result within the allowed time.",
+        "verified": false,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "H",
+      "matrix": "H",
+      "responding_phase": "responding",
+      "phase": "action_cancelled",
+      "restored_phase": "action_cancelled",
+      "orb": "idle",
+      "label": "Action cancelled. Nothing was sent",
+      "action": {
+        "status": "cancelled",
+        "stage": "cancelled",
+        "tone": "closed",
+        "headline": "Cancelled",
+        "detail": "Cancelled before execution. Nothing was sent.",
+        "verified": false,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "I",
+      "matrix": "I",
+      "responding_phase": "responding",
+      "phase": "action_superseded",
+      "restored_phase": "action_superseded",
+      "orb": "idle",
+      "label": "Action replaced by a newer action",
+      "action": {
+        "status": "superseded",
+        "stage": "superseded",
+        "tone": "closed",
+        "headline": "Replaced",
+        "detail": "Replaced by a newer action.",
+        "verified": false,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "J",
+      "matrix": "J",
+      "responding_phase": "responding",
+      "phase": "action_rejected",
+      "restored_phase": "action_rejected",
+      "orb": "failed",
+      "label": "Action rejected by the provider",
+      "action": {
+        "status": "provider_rejected",
+        "stage": "rejected",
+        "tone": "failed",
+        "headline": "Rejected by provider",
+        "detail": "The device provider rejected the command.",
+        "verified": false,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "J2",
+      "matrix": "J",
+      "responding_phase": "responding",
+      "phase": "action_rejected",
+      "restored_phase": "action_rejected",
+      "orb": "failed",
+      "label": "Action rejected by the provider",
+      "action": {
+        "status": "provider_rejected",
+        "stage": "rejected",
+        "tone": "failed",
+        "headline": "Rejected by provider",
+        "detail": "The device provider rejected the command.",
+        "verified": false,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    },
+    {
+      "id": "K",
+      "matrix": "K",
+      "responding_phase": "responding",
+      "phase": "idle",
+      "restored_phase": "idle",
+      "orb": "idle",
+      "label": "Oyi is ready",
+      "action": null,
+      "restored_action_equal": true
+    },
+    {
+      "id": "L",
+      "matrix": "L",
+      "responding_phase": "responding",
+      "phase": "idle",
+      "restored_phase": "idle",
+      "orb": "idle",
+      "label": "Oyi is ready",
+      "action": null,
+      "restored_action_equal": true
+    },
+    {
+      "id": "M",
+      "matrix": "M",
+      "responding_phase": "responding",
+      "phase": "idle",
+      "restored_phase": "idle",
+      "orb": "idle",
+      "label": "Oyi is ready",
+      "action": null,
+      "restored_action_equal": true
+    },
+    {
+      "id": "N",
+      "matrix": "N",
+      "responding_phase": "responding",
+      "phase": "action_cancelled",
+      "restored_phase": "action_cancelled",
+      "orb": "idle",
+      "label": "Action cancelled. Nothing was sent",
+      "action": {
+        "status": "cancelled",
+        "stage": "cancelled",
+        "tone": "closed",
+        "headline": "Cancelled",
+        "detail": "Cancelled before execution. Nothing was sent.",
+        "verified": false,
+        "terminal": true,
+        "awaiting_user": false
+      },
+      "restored_action_equal": true
+    }
+  ]
+}

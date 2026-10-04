@@ -1,0 +1,21 @@
+import { type ReactNode } from "react";
+export type OyiComposerProps = {
+    value: string;
+    onChange: (value: string) => void;
+    onSubmit: (value: string) => void;
+    turnInFlight?: boolean;
+    confirmationPending?: boolean;
+    disabled?: boolean;
+    voiceAvailable?: boolean;
+    voiceActive?: boolean;
+    voiceStatusLabel?: string;
+    voiceInterim?: string;
+    onStartVoice?: () => void;
+    onStopVoice?: () => void;
+    onCancelVoice?: () => void;
+    capabilitySlot?: ReactNode;
+    onOpenCapabilities?: () => void;
+    inputLabel?: string;
+    className?: string;
+};
+export declare function OyiComposer(props: OyiComposerProps): import("react").JSX.Element;

@@ -1,0 +1,13 @@
+export declare const IconPlus: () => import("react").JSX.Element;
+export declare const IconMic: () => import("react").JSX.Element;
+export declare const IconSend: () => import("react").JSX.Element;
+export declare const IconStop: () => import("react").JSX.Element;
+export declare const IconClose: () => import("react").JSX.Element;
+export declare const IconArrow: () => import("react").JSX.Element;
+export declare const IconCheck: () => import("react").JSX.Element;
+export declare const IconAlert: () => import("react").JSX.Element;
+export declare const IconDashed: () => import("react").JSX.Element;
+export declare const IconClock: () => import("react").JSX.Element;
+export declare const IconBan: () => import("react").JSX.Element;
+export declare const IconSpark: () => import("react").JSX.Element;
+export declare const IconHistory: () => import("react").JSX.Element;

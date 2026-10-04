@@ -1,0 +1,5 @@
+"use client";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+export function OyiConfirmation({ proposal, targetLabel, onConfirm, onCancel, disabled, confirmLabel = "Confirm", cancelLabel = "Cancel", className }) {
+    return (_jsxs("section", { className: ["oyi-confirmation", className].filter(Boolean).join(" "), "data-oyi-confirmation": "true", "aria-label": "Confirm action", children: [_jsx("p", { className: "oyi-confirmation-eyebrow", children: "Confirm action?" }), _jsx("p", { className: "oyi-confirmation-proposal", children: proposal }), targetLabel ? _jsxs("p", { className: "oyi-confirmation-target", children: [_jsx("span", { className: "oyi-visually-hidden", children: "Applies to: " }), targetLabel] }) : null, _jsx("p", { className: "oyi-confirmation-note", children: "Nothing has been sent yet." }), _jsxs("div", { className: "oyi-confirmation-actions", children: [_jsx("button", { type: "button", className: "oyi-button", onClick: onCancel, disabled: disabled, children: cancelLabel }), _jsx("button", { type: "button", className: "oyi-button is-primary", onClick: onConfirm, disabled: disabled, children: confirmLabel })] })] }));
+}
