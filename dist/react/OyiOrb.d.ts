@@ -1,7 +1,7 @@
 import { type OyiOrbState } from "../core/orbContract.js";
 export type OyiOrbProps = {
     state: OyiOrbState;
-    size?: "icon" | "small" | "medium" | "large";
+    size?: "icon" | "identity" | "small" | "medium" | "large";
     onActivate?: () => void;
     actionLabel?: string;
     controlsId?: string;

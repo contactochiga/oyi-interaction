@@ -28,6 +28,18 @@ test("orb: reduced motion and background pause are honoured in CSS", () => {
   assert.match(css, /\.oyi-orb\[data-paused="true"\][\s\S]*animation-play-state: paused/);
 });
 
+test("identity Orb reuses the same layers with an accessible Oyi name", () => {
+  const html = render(h(oyi.OyiOrb, { state: "idle", size: "identity" }));
+  assert.match(html, /data-size="identity"/);
+  assert.match(html, /role="img" aria-label="Oyi" aria-description="Oyi is ready"/);
+  for (const layer of ["halo", "core", "wordmark"]) assert.equal((html.match(new RegExp(`class="oyi-orb-${layer}"`, "g")) || []).length, 1);
+  assert.equal((html.match(/>Oyi</g) || []).length, 1);
+  assert.match(css, /data-size="identity"\] \{ --oyi-orb-size: 44px/);
+  assert.match(css, /data-size="identity"\] \.oyi-orb-wordmark \{ font-size: 13px; line-height: 1/);
+  assert.match(css, /data-size="icon"\] \.oyi-orb-wordmark \{ display: none/);
+  assert.match(css, /data-size="large"\] \{ --oyi-orb-size: 136px/);
+});
+
 test("confirmation: approval with 'Nothing has been sent yet', never success", () => {
   const html = render(h(oyi.OyiConfirmation, { proposal: "Turn off Room 2 AC", targetLabel: "Room 2 AC", onConfirm() {}, onCancel() {} }));
   assert.match(html, /Confirm action\?/);

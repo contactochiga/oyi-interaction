@@ -24,5 +24,5 @@ export function OyiOrb({ state, size = "medium", onActivate, actionLabel, contro
     if (onActivate) {
         return (_jsx("button", { type: "button", ...common, onClick: onActivate, "aria-label": actionLabel ? `${actionLabel}. ${token.label}` : token.label, "aria-controls": controlsId, "aria-expanded": expanded === undefined ? undefined : expanded, "aria-haspopup": hasPopup, children: body }));
     }
-    return (_jsx("span", { ...common, role: "img", "aria-label": token.label, children: body }));
+    return (_jsx("span", { ...common, role: "img", "aria-label": size === "identity" ? "Oyi" : token.label, "aria-description": size === "identity" ? token.label : undefined, children: body }));
 }

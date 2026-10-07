@@ -114,6 +114,8 @@ button.oyi-orb { cursor: pointer; }
 button.oyi-orb:active { transform: scale(0.97); }
 .oyi-orb[data-size="icon"] { --oyi-orb-size: 28px; }
 .oyi-orb[data-size="icon"] .oyi-orb-wordmark { display: none; }
+.oyi-orb[data-size="identity"] { --oyi-orb-size: 44px; flex-shrink: 0; box-shadow: 0 0 12px var(--oyi-orb-glow); }
+.oyi-orb[data-size="identity"] .oyi-orb-wordmark { font-size: 13px; line-height: 1; }
 .oyi-orb[data-size="small"] { --oyi-orb-size: 40px; }
 .oyi-orb[data-size="large"] { --oyi-orb-size: 136px; }
 @media (min-width: 1024px) { .oyi-orb[data-size="large"] { --oyi-orb-size: 176px; } }

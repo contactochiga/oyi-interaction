@@ -9,7 +9,8 @@ import { useOyiPageVisible, useOyiReducedMotion } from "./hooks.js";
 
 export type OyiOrbProps = {
   state: OyiOrbState;
-  size?: "icon" | "small" | "medium" | "large";
+  // Identity is the compact branded Orb, not a separate renderer.
+  size?: "icon" | "identity" | "small" | "medium" | "large";
   // When provided the orb is a button; otherwise it is a status image.
   onActivate?: () => void;
   // Accessible label for the button action (e.g. "Talk to Oyi"); the state
@@ -58,7 +59,7 @@ export function OyiOrb({ state, size = "medium", onActivate, actionLabel, contro
     );
   }
   return (
-    <span {...common} role="img" aria-label={token.label}>
+    <span {...common} role="img" aria-label={size === "identity" ? "Oyi" : token.label} aria-description={size === "identity" ? token.label : undefined}>
       {body}
     </span>
   );
