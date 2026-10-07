@@ -10,7 +10,7 @@ export type OyiComposerControls = {
     showCancelVoice: boolean;
     placeholder: string;
 };
-export declare const OYI_COMPOSER_PLACEHOLDER = "Write a message or tap to speak\u2026";
+export declare const OYI_COMPOSER_PLACEHOLDER = "Write a message";
 export declare function composerMode(input: {
     value: string;
     voiceActive: boolean;

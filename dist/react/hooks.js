@@ -86,12 +86,19 @@ export function useOyiFocusTrap(options) {
             }
             if (event.key !== "Tab" || !containerRef.current)
                 return;
-            const focusable = Array.from(containerRef.current.querySelectorAll(FOCUSABLE));
-            if (!focusable.length)
+            const focusable = Array.from(containerRef.current.querySelectorAll(FOCUSABLE)).filter((element) => element.getClientRects().length > 0 && !element.closest('[inert]'));
+            if (!focusable.length) {
+                event.preventDefault();
+                containerRef.current.focus();
                 return;
+            }
             const first = focusable[0];
             const last = focusable[focusable.length - 1];
-            if (event.shiftKey && document.activeElement === first) {
+            if (!focusable.includes(document.activeElement)) {
+                event.preventDefault();
+                (event.shiftKey ? last : first).focus();
+            }
+            else if (event.shiftKey && document.activeElement === first) {
                 event.preventDefault();
                 last.focus();
             }

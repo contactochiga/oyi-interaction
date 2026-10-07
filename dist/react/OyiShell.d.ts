@@ -1,11 +1,16 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { type OyiLayoutClass } from "./hooks.js";
-export declare const OYI_SHELL_SLOTS: readonly ["topRail", "sidebar", "mainCanvas", "contextSelector", "history", "caption", "suggestions", "composer", "temporaryProgress", "surfaceNavigation"];
+export declare const OYI_SHELL_SLOTS: readonly ["topRail", "contextSelector", "topRailEnd", "sidebar", "surfaceNavigation", "history", "mainCanvas", "temporaryProgress", "caption", "suggestions", "composer"];
 export type OyiShellSlot = (typeof OYI_SHELL_SLOTS)[number];
 export type OyiShellProps = Partial<Record<OyiShellSlot, ReactNode>> & {
     layout?: OyiLayoutClass;
-    historyOpen?: boolean;
     sidebarOpen?: boolean;
+    sidebarCollapsed?: boolean;
+    historyOpen?: boolean;
+    onDismissSidebar?: () => void;
+    onDismissHistory?: () => void;
+    sidebarLabel?: string;
+    historyLabel?: string;
     label?: string;
     className?: string;
 };

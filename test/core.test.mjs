@@ -220,9 +220,9 @@ test("composer: empty / typing / voice / processing / confirmation / disabled", 
   const empty = core.composerControls(base);
   assert.equal(empty.mode, "empty");
   assert.deepEqual([empty.showMic, empty.showSend], [true, false]);
-  assert.equal(empty.placeholder, "Write a message or tap to speak…");
+  assert.equal(empty.placeholder, "Write a message");
   const typing = core.composerControls({ ...base, value: "hi" });
-  assert.deepEqual([typing.mode, typing.showMic, typing.showSend, typing.sendEnabled], ["typing", true, true, true]);
+  assert.deepEqual([typing.mode, typing.showMic, typing.showSend, typing.sendEnabled], ["typing", false, true, true]);
   const voice = core.composerControls({ ...base, voiceActive: true, value: "hi" });
   assert.deepEqual([voice.mode, voice.showStopVoice, voice.showCancelVoice, voice.showSend, voice.inputDisabled], ["voice", true, true, false, true]);
   const processing = core.composerControls({ ...base, value: "next", turnInFlight: true });
@@ -316,7 +316,7 @@ test("surface adapter: valid adapters are frozen; authority/truth fields are rej
   }
   assert.throws(() => core.defineOyiSurfaceAdapter(adapter({ surface: "office" })), core.OyiSurfaceAdapterError);
   assert.throws(() => core.defineOyiSurfaceAdapter(adapter({ historyPolicy: { source: "local_storage", localFallback: "none", maxThreads: 5 } })), core.OyiSurfaceAdapterError);
-  assert.deepEqual(core.normalizeOyiNavigation([{ key: "a", label: "A", href: "/a" }, { key: "a", label: "dupe", href: "/b" }, { key: "x", label: "X", href: "https://x" }, { key: "y", label: "Y", href: "//y" }]), [{ key: "a", label: "A", href: "/a" }]);
+  assert.deepEqual(core.normalizeOyiNavigation([{ key: "a", label: "A", href: "/a" }, { key: "a", label: "dupe", href: "/b" }, { key: "x", label: "X", href: "https://x.example" }, { key: "y", label: "Y", href: "//y" }]), [{ key: "a", label: "A", href: "/a" }]);
 });
 
 // ---------------- voice ----------------

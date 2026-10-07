@@ -53,13 +53,14 @@ test("action result: canonical truth only; raw keys hidden unless diagnostic", (
 test("composer: modes render the right controls and labels", () => {
   const empty = render(h(oyi.OyiComposer, { value: "", onChange() {}, onSubmit() {}, voiceAvailable: true, onStartVoice() {}, onOpenCapabilities() {} }));
   assert.match(empty, /data-mode="empty"/);
-  assert.match(empty, /placeholder="Write a message or tap to speak…"/);
+  assert.match(empty, /placeholder="Write a message"/);
   assert.match(empty, /aria-label="Message Oyi"/);
   assert.match(empty, /aria-label="Speak to Oyi"/);
   assert.match(empty, /aria-label="Add or attach"/);
   assert.doesNotMatch(empty, /Send message/);
   const typing = render(h(oyi.OyiComposer, { value: "hi", onChange() {}, onSubmit() {}, voiceAvailable: true, onStartVoice() {} }));
   assert.match(typing, /aria-label="Send message"/);
+  assert.doesNotMatch(typing, /aria-label="Speak to Oyi"/);
   const processing = render(h(oyi.OyiComposer, { value: "next", onChange() {}, onSubmit() {}, turnInFlight: true }));
   assert.match(processing, /aria-busy="true"/);
   assert.match(processing, /disabled="" aria-label="Sending is paused while Oyi is working"/);
@@ -104,7 +105,7 @@ test("shell: renders only provided slots, layout class, live progress region", (
   assert.match(html, /data-slot="composer"/);
   assert.match(html, /class="oyi-shell-progress" role="status" aria-live="polite">Working/);
   assert.doesNotMatch(html, /data-slot="sidebar"/);
-  assert.equal(oyi.OYI_SHELL_SLOTS.length, 10);
+  assert.equal(oyi.OYI_SHELL_SLOTS.length, 11);
   assert.equal(oyi.oyiLayoutForWidth(390), "mobile");
   assert.equal(oyi.oyiLayoutForWidth(820), "tablet");
   assert.equal(oyi.oyiLayoutForWidth(1280), "desktop");

@@ -1,6 +1,6 @@
 {
   "name": "oyi-interaction",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shared Oyi human-interaction foundation (state, truth, composer, caption, suggestions, confirmation, action result, history, shell, orb fallback, surface adapter contract) for Oyi Consumer and Facility.",
   "private": true,
   "type": "module",
@@ -34,8 +34,10 @@
     "test": "node --test test/*.test.mjs",
     "guard": "node scripts/guard.mjs",
     "verify:dist": "node scripts/verify-dist.mjs",
-    "check": "npm run typecheck && npm run guard && npm run build && npm run verify:dist && npm run expectations && npm test",
-    "expectations": "node scripts/expectations.mjs"
+    "check": "npm run publication-guard && npm run typecheck && npm run guard && npm run build && npm run verify:dist && npm run expectations && npm test",
+    "expectations": "node scripts/expectations.mjs",
+    "publication-guard": "node scripts/publication-guard.mjs",
+    "prepack": "node scripts/publication-guard.mjs"
   },
   "peerDependencies": {
     "react": ">=19.0.0"

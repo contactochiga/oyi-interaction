@@ -11,3 +11,7 @@ export { OyiConfirmation } from "./react/OyiConfirmation.js";
 export { OyiActionResult } from "./react/OyiActionResult.js";
 export { OyiHistory } from "./react/OyiHistory.js";
 export { OyiShell, OYI_SHELL_SLOTS } from "./react/OyiShell.js";
+export { OyiProgress } from "./react/OyiProgress.js";
+export { OyiVoiceLevel } from "./react/OyiVoiceLevel.js";
+export { OyiNotice } from "./react/OyiNotice.js";
+export { OyiContextSelector } from "./react/OyiContextSelector.js";

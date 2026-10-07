@@ -7,6 +7,7 @@
 import { useRef, type ReactNode } from "react";
 import { composerControls } from "../core/composer.js";
 import { IconClose, IconMic, IconPlus, IconSend, IconStop } from "./icons.js";
+import { OyiVoiceLevel } from "./OyiVoiceLevel.js";
 
 export type OyiComposerProps = {
   value: string;
@@ -19,6 +20,8 @@ export type OyiComposerProps = {
   voiceActive?: boolean;
   voiceStatusLabel?: string;
   voiceInterim?: string;
+  // Real measured input levels (0..1); omitted/empty = no meter is drawn.
+  voiceLevels?: readonly number[] | null;
   onStartVoice?: () => void;
   onStopVoice?: () => void;
   onCancelVoice?: () => void;
@@ -58,6 +61,7 @@ export function OyiComposer(props: OyiComposerProps) {
         <div className="oyi-composer-voice" role="status" aria-live="polite">
           <span className="oyi-composer-voice-dot" aria-hidden="true" />
           <span className="oyi-composer-voice-label">{props.voiceStatusLabel || "Listening…"}</span>
+          <OyiVoiceLevel levels={props.voiceLevels} />
           {props.voiceInterim ? <span className="oyi-composer-voice-interim">{props.voiceInterim}</span> : null}
         </div>
         {controls.showCancelVoice && props.onCancelVoice ? <button type="button" className="oyi-icon-button" onClick={props.onCancelVoice} aria-label="Cancel voice input"><IconClose /></button> : null}
@@ -81,7 +85,7 @@ export function OyiComposer(props: OyiComposerProps) {
         disabled={controls.inputDisabled}
         placeholder={controls.placeholder}
         aria-label={props.inputLabel || "Message Oyi"}
-        onChange={(event) => props.onChange(event.target.value)}
+        onChange={(event) => { event.target.style.height = "auto"; event.target.style.height = `${Math.min(event.target.scrollHeight, 144)}px`; props.onChange(event.target.value); }}
         onKeyDown={(event) => {
           if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) {
             event.preventDefault();

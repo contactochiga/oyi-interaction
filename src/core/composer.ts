@@ -25,7 +25,7 @@ export type OyiComposerControls = {
   placeholder: string;
 };
 
-export const OYI_COMPOSER_PLACEHOLDER = "Write a message or tap to speak…";
+export const OYI_COMPOSER_PLACEHOLDER = "Write a message";
 
 export function composerMode(input: { value: string; voiceActive: boolean; turnInFlight: boolean; confirmationPending: boolean; disabled?: boolean }): OyiComposerMode {
   if (input.disabled) return "disabled";
@@ -41,8 +41,8 @@ export function composerControls(input: { value: string; voiceActive: boolean; t
   return {
     mode,
     inputDisabled: mode === "disabled" || mode === "voice",
-    showMic: input.voiceAvailable && (mode === "empty" || mode === "typing" || mode === "confirmation" || mode === "processing"),
-    showSend: mode === "typing" || mode === "processing",
+    showMic: input.voiceAvailable && !hasText && (mode === "empty" || mode === "confirmation" || mode === "processing"),
+    showSend: hasText && (mode === "typing" || mode === "processing"),
     sendEnabled: mode === "typing" && hasText,
     showStopVoice: mode === "voice",
     showCancelVoice: mode === "voice",

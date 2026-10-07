@@ -97,11 +97,12 @@ export function useOyiFocusTrap(options: {
         return;
       }
       if (event.key !== "Tab" || !containerRef.current) return;
-      const focusable = Array.from(containerRef.current.querySelectorAll<HTMLElement>(FOCUSABLE));
-      if (!focusable.length) return;
+      const focusable = Array.from(containerRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)).filter((element) => element.getClientRects().length > 0 && !element.closest('[inert]'));
+      if (!focusable.length) { event.preventDefault(); containerRef.current.focus(); return; }
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      if (!focusable.includes(document.activeElement as HTMLElement)) { event.preventDefault(); (event.shiftKey ? last : first).focus(); }
+      else if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     };
     document.addEventListener("keydown", onKeyDown);
