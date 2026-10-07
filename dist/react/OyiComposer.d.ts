@@ -16,6 +16,7 @@ export type OyiComposerProps = {
     voiceLevels?: readonly number[] | null;
     onStartVoice?: () => void;
     onStopVoice?: () => void;
+    onSendVoice?: () => void;
     onCancelVoice?: () => void;
     capabilitySlot?: ReactNode;
     onOpenCapabilities?: () => void;

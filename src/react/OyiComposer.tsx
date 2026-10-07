@@ -28,6 +28,8 @@ export type OyiComposerProps = {
   voiceLevels?: readonly number[] | null;
   onStartVoice?: () => void;
   onStopVoice?: () => void;
+  // Host finalizes recognition before submitting through its normal turn path.
+  onSendVoice?: () => void;
   onCancelVoice?: () => void;
   // Attachment / capability trigger slot ("+"). When omitted, a "+" button
   // calling onOpenCapabilities is shown if that callback exists.
@@ -63,17 +65,18 @@ export function OyiComposer(props: OyiComposerProps) {
 
   if (controls.mode === "voice") {
     return (
-      <div className={["oyi-composer", props.className].filter(Boolean).join(" ")} data-mode="voice">
+      <div className={["oyi-composer", props.className].filter(Boolean).join(" ")} data-mode="voice" data-finalizing={props.voiceStopping || undefined}>
         {expanded && props.onCancelVoice ? <button type="button" className="oyi-icon-button" onClick={props.onCancelVoice} aria-label="Cancel voice input"><IconClose /></button> : null}
         <div className="oyi-composer-voice" role="status" aria-live="polite">
           <span className="oyi-composer-voice-dot" aria-hidden="true" />
-          <span className="oyi-composer-voice-label">{props.voiceStatusLabel || "Listening…"}</span>
+          <span className={expanded ? "oyi-visually-hidden" : "oyi-composer-voice-label"}>{props.voiceStatusLabel || "Listening…"}</span>
           {expanded ? <span className="oyi-composer-timer" aria-label="Recording duration" aria-live="off">{Math.floor(elapsed / 60)}:{String(elapsed % 60).padStart(2, "0")}</span> : null}
           <OyiVoiceLevel levels={props.voiceLevels} />
-          {props.voiceInterim ? <span className="oyi-composer-voice-interim">{props.voiceInterim}</span> : null}
+          {!expanded && props.voiceInterim ? <span className="oyi-composer-voice-interim">{props.voiceInterim}</span> : null}
         </div>
         {!expanded && controls.showCancelVoice && props.onCancelVoice ? <button type="button" className="oyi-icon-button" onClick={props.onCancelVoice} aria-label="Cancel voice input"><IconClose /></button> : null}
         {controls.showStopVoice && props.onStopVoice ? <button type="button" className="oyi-icon-button is-active" onClick={props.onStopVoice} disabled={props.voiceStopping} aria-label="Stop voice input"><IconStop /></button> : null}
+        {expanded && props.onSendVoice ? <button type="button" className="oyi-send-button" onClick={props.onSendVoice} disabled={props.voiceStopping || props.disabled || props.turnInFlight} aria-label="Finalize and send voice message"><IconSend /></button> : null}
       </div>
     );
   }
