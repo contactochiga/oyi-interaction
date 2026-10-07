@@ -12,4 +12,4 @@ export * from "./surfaceAdapter.js";
 export * from "./voice.js";
 export * from "./confirmation.js";
 export * from "./progress.js";
-export const OYI_INTERACTION_VERSION = "0.2.0";
+export const OYI_INTERACTION_VERSION = "0.3.0";

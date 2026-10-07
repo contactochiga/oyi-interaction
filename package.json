@@ -1,6 +1,6 @@
 {
   "name": "oyi-interaction",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Shared Oyi human-interaction foundation (state, truth, composer, caption, suggestions, confirmation, action result, history, shell, orb fallback, surface adapter contract) for Oyi Consumer and Facility.",
   "private": true,
   "type": "module",

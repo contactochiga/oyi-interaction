@@ -9,6 +9,9 @@ export type OyiComposerProps = {
     voiceAvailable?: boolean;
     voiceActive?: boolean;
     voiceStatusLabel?: string;
+    controlsLayout?: "compact" | "expanded";
+    voiceElapsedSeconds?: number;
+    voiceStopping?: boolean;
     voiceInterim?: string;
     voiceLevels?: readonly number[] | null;
     onStartVoice?: () => void;

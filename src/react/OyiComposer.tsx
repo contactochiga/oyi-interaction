@@ -19,6 +19,10 @@ export type OyiComposerProps = {
   voiceAvailable?: boolean;
   voiceActive?: boolean;
   voiceStatusLabel?: string;
+  // Opt-in keeps older hosts' compact composer unchanged.
+  controlsLayout?: "compact" | "expanded";
+  voiceElapsedSeconds?: number;
+  voiceStopping?: boolean;
   voiceInterim?: string;
   // Real measured input levels (0..1); omitted/empty = no meter is drawn.
   voiceLevels?: readonly number[] | null;
@@ -43,6 +47,8 @@ export function OyiComposer(props: OyiComposerProps) {
     disabled: props.disabled,
     voiceAvailable: Boolean(props.voiceAvailable && props.onStartVoice),
   });
+  const expanded = props.controlsLayout === "expanded";
+  const elapsed = Math.max(0, Math.floor(props.voiceElapsedSeconds || 0));
 
   function submit() {
     if (!controls.sendEnabled) return;
@@ -58,14 +64,16 @@ export function OyiComposer(props: OyiComposerProps) {
   if (controls.mode === "voice") {
     return (
       <div className={["oyi-composer", props.className].filter(Boolean).join(" ")} data-mode="voice">
+        {expanded && props.onCancelVoice ? <button type="button" className="oyi-icon-button" onClick={props.onCancelVoice} aria-label="Cancel voice input"><IconClose /></button> : null}
         <div className="oyi-composer-voice" role="status" aria-live="polite">
           <span className="oyi-composer-voice-dot" aria-hidden="true" />
           <span className="oyi-composer-voice-label">{props.voiceStatusLabel || "Listening…"}</span>
+          {expanded ? <span className="oyi-composer-timer" aria-label="Recording duration" aria-live="off">{Math.floor(elapsed / 60)}:{String(elapsed % 60).padStart(2, "0")}</span> : null}
           <OyiVoiceLevel levels={props.voiceLevels} />
           {props.voiceInterim ? <span className="oyi-composer-voice-interim">{props.voiceInterim}</span> : null}
         </div>
-        {controls.showCancelVoice && props.onCancelVoice ? <button type="button" className="oyi-icon-button" onClick={props.onCancelVoice} aria-label="Cancel voice input"><IconClose /></button> : null}
-        {controls.showStopVoice && props.onStopVoice ? <button type="button" className="oyi-icon-button is-active" onClick={props.onStopVoice} aria-label="Stop voice input"><IconStop /></button> : null}
+        {!expanded && controls.showCancelVoice && props.onCancelVoice ? <button type="button" className="oyi-icon-button" onClick={props.onCancelVoice} aria-label="Cancel voice input"><IconClose /></button> : null}
+        {controls.showStopVoice && props.onStopVoice ? <button type="button" className="oyi-icon-button is-active" onClick={props.onStopVoice} disabled={props.voiceStopping} aria-label="Stop voice input"><IconStop /></button> : null}
       </div>
     );
   }
@@ -93,8 +101,8 @@ export function OyiComposer(props: OyiComposerProps) {
           }
         }}
       />
-      {controls.showMic ? <button type="button" className="oyi-icon-button" onClick={props.onStartVoice} disabled={controls.mode === "processing"} aria-label="Speak to Oyi"><IconMic /></button> : null}
-      {controls.showSend ? <button type="submit" className="oyi-send-button" disabled={!controls.sendEnabled} aria-label={controls.mode === "processing" ? "Sending is paused while Oyi is working" : "Send message"}><IconSend /></button> : null}
+      {expanded || controls.showMic ? <button type="button" className="oyi-icon-button" onClick={props.onStartVoice} disabled={controls.inputDisabled || controls.mode === "processing" || !props.onStartVoice} aria-label="Speak to Oyi"><IconMic /></button> : null}
+      {expanded || controls.showSend ? <button type="submit" className="oyi-send-button" disabled={!controls.sendEnabled} aria-label={controls.mode === "processing" ? "Sending is paused while Oyi is working" : "Send message"}><IconSend /></button> : null}
     </form>
   );
 }

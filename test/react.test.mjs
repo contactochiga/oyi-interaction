@@ -71,6 +71,21 @@ test("composer: modes render the right controls and labels", () => {
   assert.doesNotMatch(voice, /<textarea/);
 });
 
+test("expanded composer keeps mic/send visible and cancel before recording status", () => {
+  const props = { controlsLayout: "expanded", value: "", onChange() {}, onSubmit() {}, onStartVoice() {}, onStopVoice() {}, onCancelVoice() {} };
+  const empty = render(h(oyi.OyiComposer, props));
+  assert.match(empty, /aria-label="Speak to Oyi"/);
+  assert.match(empty, /disabled="" aria-label="Send message"/);
+  const typed = render(h(oyi.OyiComposer, { ...props, value: "typed" }));
+  assert.match(typed, /aria-label="Speak to Oyi"/);
+  assert.match(typed, /aria-label="Send message"/);
+  const voice = render(h(oyi.OyiComposer, { ...props, voiceActive: true, voiceElapsedSeconds: 65, voiceStopping: true }));
+  assert.ok(voice.indexOf('aria-label="Cancel voice input"') < voice.indexOf('role="status"'));
+  assert.match(voice, /1:05/);
+  assert.match(voice, /disabled="" aria-label="Stop voice input"/);
+  assert.doesNotMatch(voice, /Send message|Speak to Oyi/);
+});
+
 test("caption: aria-live, speaker labels, spoken highlight only when given", () => {
   const html = render(h(oyi.OyiCaption, { entries: [{ kind: "user_final", text: "Turn off AC" }, { kind: "oyi_response", text: "Command accepted.", spokenRange: { start: 0, end: 7 } }] }));
   assert.match(html, /aria-live="polite"/);

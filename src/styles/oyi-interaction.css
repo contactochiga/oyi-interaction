@@ -214,6 +214,8 @@ button.oyi-orb:active { transform: scale(0.97); }
 .oyi-composer-voice { flex: 1; min-width: 0; display: flex; align-items: center; gap: var(--oyi-space-2); padding: 8px 4px; color: var(--oyi-text); }
 .oyi-composer-voice-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--oyi-accent-strong); animation: oyi-orb-pulse 1100ms ease-in-out infinite; }
 .oyi-composer-voice-interim { color: var(--oyi-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oyi-composer-timer { font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 12px; }
+.oyi-composer-voice-label { flex-shrink: 0; }
 
 /* ---------- Suggestions (no per-item cards) ---------- */
 .oyi-suggestions { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
