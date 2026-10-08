@@ -13,8 +13,10 @@ export function createOyiLiveVoiceSession(options) {
             return;
         }
         emit({ phase: "permission", caption: "Allow microphone access to start browser Live Voice." });
+        const token = epoch;
         try {
-            void Promise.resolve(options.input.startListening()).catch(() => fail("Microphone capture could not start. Retry or type your message."));
+            void Promise.resolve(options.input.startListening()).catch(() => { if (token === epoch)
+                fail("Microphone capture could not start. Retry or type your message."); });
         }
         catch {
             fail("Microphone capture could not start. Retry or type your message.");

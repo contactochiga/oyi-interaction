@@ -26,7 +26,8 @@ export function createOyiLiveVoiceSession(options: {
       emit({ phase: "unsupported", caption: "Live Voice needs browser speech recognition and speech output. Native live voice is not available here; you can still type." }); return;
     }
     emit({ phase: "permission", caption: "Allow microphone access to start browser Live Voice." });
-    try { void Promise.resolve(options.input.startListening()).catch(() => fail("Microphone capture could not start. Retry or type your message.")); }
+    const token = epoch;
+    try { void Promise.resolve(options.input.startListening()).catch(() => { if (token === epoch) fail("Microphone capture could not start. Retry or type your message."); }); }
     catch { fail("Microphone capture could not start. Retry or type your message."); }
   }
   async function turn(text: string) {
