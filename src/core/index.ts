@@ -14,4 +14,4 @@ export * from "./liveVoice.js";
 export * from "./confirmation.js";
 export * from "./progress.js";
 
-export const OYI_INTERACTION_VERSION = "0.6.0";
+export const OYI_INTERACTION_VERSION = "0.7.0";

@@ -48,11 +48,22 @@ test('late asynchronous capture failure after End stays closed',async()=>{
   const session=createOyiLiveVoiceSession({input,output:{available:true,cancel(){},async speak(){}},async submit(){return 'unused';}});
   session.start();session.end();reject(Error('late failure'));await tick();assert.equal(session.getSnapshot().phase,'closed');session.dispose();
 });
-test('hub is non-modal, reuses Orb, has one End and only measured levels',()=>{
+test('minimal hub reuses Orb; no panel controls, waveform or long normal caption',()=>{
   const state={phase:'listening',caption:'Actual words',requestPending:false};
   const html=render(h(OyiLiveVoiceHub,{state,onEnd(){},onMute(){},onResume(){}}));
-  assert.equal((html.match(/aria-label="End Live Voice"/g)||[]).length,1);assert.match(html,/oyi-orb/);assert.match(html,/role="status"/);assert.doesNotMatch(html,/aria-modal|role="dialog"|role="meter"/);
+  assert.match(html,/oyi-orb/);assert.match(html,/role="status"/);assert.match(html,/Listening…/);assert.doesNotMatch(html,/aria-modal|role="dialog"|role="meter"|<button|Actual words|oyi-live-voice-controls/);
   const shell=render(h(OyiShell,{voiceHub:h(OyiLiveVoiceHub,{state}),composer:'composer fixture'}));assert.ok(shell.indexOf('data-slot="voiceHub"')<shell.indexOf('data-slot="composer"'));
+});
+test('error detail is disclosed explicitly; never silently hides failure',()=>{
+  const html=render(h(OyiLiveVoiceHub,{state:{phase:'error',caption:'Microphone permission was denied.',requestPending:false},onResume(){}}));
+  assert.match(html,/Voice interrupted/);assert.match(html,/<details[^>]*><summary>Voice details<\/summary>/);assert.match(html,/Microphone permission was denied/);assert.match(html,/Resume voice/);assert.doesNotMatch(html,/End Live Voice|<details[^>]* open/);
+});
+test('composer always exposes one active-session End, including typed, working and offline states',()=>{
+  for(const value of ['', 'draft'])for(const turnInFlight of [false,true])for(const disabled of [false,true]){
+    const html=render(h(OyiComposer,{value,turnInFlight,disabled,onChange(){},onSubmit(){},controlsLayout:'expanded',liveVoiceActive:true,onStartLiveVoice(){},onEndLiveVoice(){}}));
+    assert.equal((html.match(/aria-label="End Live Voice"/g)||[]).length,1);assert.match(html,/<button type="button" class="oyi-icon-button" aria-label="End Live Voice">/);assert.doesNotMatch(html,/aria-label="Start Live Voice"/);assert.match(html,/One-shot microphone unavailable while Live Voice is active/);
+    if(value)assert.match(html,/Send message|Sending is paused/);
+  }
 });
 test('composer opt-in empty Live Voice vs typed Send; old hosts unchanged',()=>{
   const props={value:'',onChange(){},onSubmit(){},controlsLayout:'expanded'};

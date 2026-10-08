@@ -1,5 +1,18 @@
 # oyi-interaction
 
+## v0.7 minimal Live Voice presentation
+
+`OyiLiveVoiceHub` is now a standalone shared Orb and short caption, with no
+panel, waveform or duplicate microphone/close controls. Errors and pause
+reasons remain accessible through the native **Voice details** disclosure;
+an optional resume callback is offered inside that disclosure only.
+Wire `OyiComposer.onEndLiveVoice` alongside `onStartLiveVoice` and
+`liveVoiceActive`. The composer owns the single End (X), including when text
+is entered, a request is pending or connectivity is lost. Typed Send remains
+separate. One-shot capture is disabled with an accessible explanation while
+Live Voice owns the microphone. Session transport/state semantics are unchanged.
+No Facility/Office migration is included; those hosts retain their pinned release.
+
 The shared Oyi **human-interaction foundation**. Oyi Consumer and Oyi Facility consume it through thin
 surface adapters: one interaction grammar, with surface-specific context, navigation and authority.
 

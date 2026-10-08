@@ -1,9 +1,9 @@
 import type { OyiLiveVoiceSnapshot } from "../core/liveVoice.js";
-/** Non-modal dock panel; never owns transport, authority or a second composer. */
-export declare function OyiLiveVoiceHub({ state, levels, onEnd, onMute, onResume }: {
+/** Standalone dock Orb. Session controls belong to the host's composer. */
+export declare function OyiLiveVoiceHub({ state, onEnd, onResume }: {
     state: OyiLiveVoiceSnapshot;
     levels?: readonly number[];
-    onEnd: () => void;
-    onMute: () => void;
-    onResume: () => void;
+    onEnd?: () => void;
+    onMute?: () => void;
+    onResume?: () => void;
 }): import("react").JSX.Element | null;

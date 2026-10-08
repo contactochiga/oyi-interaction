@@ -28,6 +28,7 @@ export type OyiComposerProps = {
   voiceLevels?: readonly number[] | null;
   onStartVoice?: () => void;
   onStartLiveVoice?: () => void;
+  onEndLiveVoice?: () => void;
   liveVoiceActive?: boolean;
   onStopVoice?: () => void;
   // Host finalizes recognition before submitting through its normal turn path.
@@ -88,6 +89,7 @@ export function OyiComposer(props: OyiComposerProps) {
       className={["oyi-composer", props.className].filter(Boolean).join(" ")}
       data-mode={controls.mode}
       aria-busy={controls.mode === "processing" ? true : undefined}
+      onKeyDown={(event) => { if (event.key === "Escape" && props.liveVoiceActive && props.onEndLiveVoice) { event.stopPropagation(); props.onEndLiveVoice(); } }}
       onSubmit={(event) => { event.preventDefault(); submit(); }}
     >
       {props.capabilitySlot ?? (props.onOpenCapabilities ? <button type="button" className="oyi-icon-button" onClick={props.onOpenCapabilities} disabled={controls.inputDisabled} aria-label="Add or attach"><IconPlus /></button> : null)}
@@ -106,8 +108,9 @@ export function OyiComposer(props: OyiComposerProps) {
           }
         }}
       />
-      {expanded || controls.showMic ? <button type="button" className="oyi-icon-button" onClick={props.onStartVoice} disabled={controls.inputDisabled || controls.mode === "processing" || !props.onStartVoice} aria-label="Speak to Oyi"><IconMic /></button> : null}
-      {props.onStartLiveVoice && !props.value.trim() && controls.mode !== "processing" ? <button type="button" className="oyi-icon-button" onClick={props.onStartLiveVoice} disabled={props.disabled || props.liveVoiceActive} aria-label={props.liveVoiceActive ? "Live Voice is open" : "Start Live Voice"}><svg viewBox="0 0 24 24" width="1em" height="1em" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 10v4M8 6v12M12 3v18M16 6v12M20 10v4" /></svg></button> : expanded || controls.showSend ? <button type="submit" className="oyi-send-button" disabled={!controls.sendEnabled} aria-label={controls.mode === "processing" ? "Sending is paused while Oyi is working" : "Send message"}><IconSend /></button> : null}
+      {expanded || controls.showMic ? <button type="button" className="oyi-icon-button" onClick={props.onStartVoice} disabled={props.liveVoiceActive || controls.inputDisabled || controls.mode === "processing" || !props.onStartVoice} aria-label={props.liveVoiceActive ? "One-shot microphone unavailable while Live Voice is active" : "Speak to Oyi"}><IconMic /></button> : null}
+      {props.onStartLiveVoice && !props.value.trim() && controls.mode !== "processing" ? (!props.liveVoiceActive ? <button type="button" className="oyi-icon-button" onClick={props.onStartLiveVoice} disabled={props.disabled} aria-label="Start Live Voice"><svg viewBox="0 0 24 24" width="1em" height="1em" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 10v4M8 6v12M12 3v18M16 6v12M20 10v4" /></svg></button> : null) : expanded || controls.showSend ? <button type="submit" className="oyi-send-button" disabled={!controls.sendEnabled} aria-label={controls.mode === "processing" ? "Sending is paused while Oyi is working" : "Send message"}><IconSend /></button> : null}
+      {props.liveVoiceActive && props.onEndLiveVoice ? <button type="button" className="oyi-icon-button" onClick={props.onEndLiveVoice} aria-label="End Live Voice"><IconClose /></button> : null}
     </form>
   );
 }

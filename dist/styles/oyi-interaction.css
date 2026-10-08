@@ -326,17 +326,18 @@ button.oyi-orb:active { transform: scale(0.97); }
 }
 .oyi-shell-suggestions { padding: 0 var(--oyi-space-3) var(--oyi-space-2); }
 .oyi-shell-dock .oyi-composer { padding-bottom: var(--oyi-space-2); }
-.oyi-shell-voice-hub { width: 100%; margin-bottom: 12px; }
-.oyi-live-voice-hub { max-width: 420px; margin: 0 auto; padding: 8px 14px 12px; border: 1px solid rgba(80,151,235,.22); border-radius: 22px; background: linear-gradient(145deg,#101f33,#08121f); box-shadow: 0 6px 28px rgba(0,0,0,.28); text-align: center; }
-.oyi-live-voice-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.oyi-live-voice-label { color: var(--oyi-text-muted); font-size: 11px; }
-.oyi-live-voice-orb { display: flex; justify-content: center; padding: 4px 0 10px; }
-.oyi-live-voice-hub .oyi-voice-level { margin: 0 auto; height: 18px; }
-.oyi-live-voice-caption { margin: 6px 0 0; font-size: 13px; line-height: 1.5; color: var(--oyi-text); max-height: 58px; overflow: auto; overflow-wrap: anywhere; user-select: text; }
+.oyi-shell-voice-hub { width: 100%; margin-bottom: 16px; }
+.oyi-live-voice-hub { max-width: 420px; margin: 0 auto; padding: 0; border: 0; background: none; box-shadow: none; text-align: center; }
+.oyi-live-voice-orb { display: flex; justify-content: center; padding: 0; }
+.oyi-live-voice-caption { margin: 6px 0 0; font-size: 12px; line-height: 1.5; color: var(--oyi-text-muted); user-select: text; }
+.oyi-live-voice-details { margin-top: 4px; font-size: 12px; color: var(--oyi-text-muted); }
+.oyi-live-voice-details summary { cursor: pointer; }
+.oyi-live-voice-details p { max-height: 64px; overflow: auto; overflow-wrap: anywhere; user-select: text; margin: 6px 0; }
+.oyi-live-voice-details button { border: 0; background: none; color: var(--oyi-accent-strong); font: inherit; cursor: pointer; }
+.oyi-live-voice-details :is(summary,button):focus-visible { outline: 2px solid var(--oyi-accent-strong); outline-offset: 3px; }
 @media (max-height: 560px) {
-  .oyi-live-voice-orb { display: none; }
-  .oyi-live-voice-hub { padding-block: 4px 8px; }
-  .oyi-live-voice-caption { max-height: 38px; }
+  .oyi-live-voice-orb .oyi-orb { --oyi-orb-size: 40px; }
+  .oyi-live-voice-details p { max-height: 38px; }
 }
 
 .oyi-shell-sidebar,
