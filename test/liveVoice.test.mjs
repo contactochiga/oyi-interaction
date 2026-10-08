@@ -39,6 +39,15 @@ test('unsupported and permission denial never imply listening',()=>{
 test('empty transcript never submits; disposed session ignores future input',()=>{
   const f=fixture();f.session.start();f.emit({status:'idle',finalTranscript:''});f.session.dispose();f.emit({status:'idle',finalTranscript:'late'});assert.ok(!f.calls.some(x=>x.startsWith('submit:')));
 });
+test('late output start/end after End cannot speak or reopen microphone',async()=>{
+  const f=fixture();f.session.start();f.emit({status:'idle',finalTranscript:'hello'});f.deliver();await tick();f.session.end();f.speak();f.endSpeech();await tick();assert.equal(f.session.getSnapshot().phase,'closed');assert.equal(f.calls.filter(x=>x==='listen').length,1);f.session.dispose();
+});
+test('late asynchronous capture failure after End stays closed',async()=>{
+  let reject;
+  const input={getSnapshot:()=>({available:true}),subscribe:()=>()=>{},cancelListening(){},startListening:()=>new Promise((_,r)=>{reject=r;})};
+  const session=createOyiLiveVoiceSession({input,output:{available:true,cancel(){},async speak(){}},async submit(){return 'unused';}});
+  session.start();session.end();reject(Error('late failure'));await tick();assert.equal(session.getSnapshot().phase,'closed');session.dispose();
+});
 test('hub is non-modal, reuses Orb, has one End and only measured levels',()=>{
   const state={phase:'listening',caption:'Actual words',requestPending:false};
   const html=render(h(OyiLiveVoiceHub,{state,onEnd(){},onMute(){},onResume(){}}));
