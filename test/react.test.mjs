@@ -147,7 +147,7 @@ test("shell: renders only provided slots, layout class, live progress region", (
   assert.match(html, /data-slot="composer"/);
   assert.match(html, /class="oyi-shell-progress" role="status" aria-live="polite">Working/);
   assert.doesNotMatch(html, /data-slot="sidebar"/);
-  assert.equal(oyi.OYI_SHELL_SLOTS.length, 11);
+  assert.equal(oyi.OYI_SHELL_SLOTS.length, 12);
   assert.equal(oyi.oyiLayoutForWidth(390), "mobile");
   assert.equal(oyi.oyiLayoutForWidth(820), "tablet");
   assert.equal(oyi.oyiLayoutForWidth(1280), "desktop");

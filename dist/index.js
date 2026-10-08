@@ -13,5 +13,6 @@ export { OyiHistory } from "./react/OyiHistory.js";
 export { OyiShell, OYI_SHELL_SLOTS } from "./react/OyiShell.js";
 export { OyiProgress } from "./react/OyiProgress.js";
 export { OyiVoiceLevel } from "./react/OyiVoiceLevel.js";
+export { OyiLiveVoiceHub } from "./react/OyiLiveVoiceHub.js";
 export { OyiNotice } from "./react/OyiNotice.js";
 export { OyiContextSelector } from "./react/OyiContextSelector.js";

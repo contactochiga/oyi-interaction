@@ -326,6 +326,18 @@ button.oyi-orb:active { transform: scale(0.97); }
 }
 .oyi-shell-suggestions { padding: 0 var(--oyi-space-3) var(--oyi-space-2); }
 .oyi-shell-dock .oyi-composer { padding-bottom: var(--oyi-space-2); }
+.oyi-shell-voice-hub { width: 100%; margin-bottom: 12px; }
+.oyi-live-voice-hub { max-width: 420px; margin: 0 auto; padding: 8px 14px 12px; border: 1px solid rgba(80,151,235,.22); border-radius: 22px; background: linear-gradient(145deg,#101f33,#08121f); box-shadow: 0 6px 28px rgba(0,0,0,.28); text-align: center; }
+.oyi-live-voice-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.oyi-live-voice-label { color: var(--oyi-text-muted); font-size: 11px; }
+.oyi-live-voice-orb { display: flex; justify-content: center; padding: 4px 0 10px; }
+.oyi-live-voice-hub .oyi-voice-level { margin: 0 auto; height: 18px; }
+.oyi-live-voice-caption { margin: 6px 0 0; font-size: 13px; line-height: 1.5; color: var(--oyi-text); max-height: 58px; overflow: auto; overflow-wrap: anywhere; user-select: text; }
+@media (max-height: 560px) {
+  .oyi-live-voice-orb { display: none; }
+  .oyi-live-voice-hub { padding-block: 4px 8px; }
+  .oyi-live-voice-caption { max-height: 38px; }
+}
 
 .oyi-shell-sidebar,
 .oyi-shell-history {

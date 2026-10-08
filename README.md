@@ -46,3 +46,23 @@ When the Backend contract fixture changes:
 1. Copy `Ochiga-backend/docs/contracts/oyi-action-truth.fixture.json` to `fixtures/`.
 2. Run `node scripts/expectations.mjs --write`.
 3. Review the diff, then release.
+# Browser Live Voice (v0.6)
+
+`OyiLiveVoiceHub` mounts in the optional `OyiShell.voiceHub` dock slot,
+immediately above the existing composer. It is not a dialog and owns no
+transport or realtime connection. `OyiComposer.onStartLiveVoice` opts into
+an empty-draft Live Voice control; older hosts retain their existing markup.
+
+`createOyiLiveVoiceSession` coordinates the existing `OyiVoiceAdapter`, an
+injected `OyiSpeechOutput`, and a host's canonical conversation callback.
+Only a finalized utterance can submit. Output begins only after an actual
+reply, speaking begins only on the output start event, and listening resumes
+only after output ends. Mute/end invalidate late callbacks; an already-sent
+conversation request is not undone. Hosts must pause on background/offline,
+end on scope/thread changes, and dispose on unmount. No audio waveform is
+fabricated: the hub displays only supplied measured levels.
+
+Browser support and microphone permission must be checked by the host.
+This is not a native speech implementation or a guarantee that Web Speech
+works in installed WebViews. No authority, action or confirmation rules are
+owned by this session contract.

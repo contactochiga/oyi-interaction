@@ -8,6 +8,7 @@ export * from "./suggestions.js";
 export * from "./history.js";
 export * from "./surfaceAdapter.js";
 export * from "./voice.js";
+export * from "./liveVoice.js";
 export * from "./confirmation.js";
 export * from "./progress.js";
-export declare const OYI_INTERACTION_VERSION = "0.5.0";
+export declare const OYI_INTERACTION_VERSION = "0.6.0";

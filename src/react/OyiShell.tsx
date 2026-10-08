@@ -30,6 +30,7 @@ export const OYI_SHELL_SLOTS = [
   "temporaryProgress",
   "caption",
   "suggestions",
+  "voiceHub",
   "composer",
 ] as const;
 
@@ -102,9 +103,10 @@ export function OyiShell(props: OyiShellProps) {
             {props.caption ? <div className="oyi-shell-caption" data-slot="caption">{props.caption}</div> : null}
           </div>
         </main>
-        {props.suggestions || props.composer ? (
+        {props.suggestions || props.voiceHub || props.composer ? (
           <div className="oyi-shell-dock">
             {props.suggestions ? <div className="oyi-shell-suggestions" data-slot="suggestions">{props.suggestions}</div> : null}
+            {props.voiceHub ? <div className="oyi-shell-voice-hub" data-slot="voiceHub">{props.voiceHub}</div> : null}
             {props.composer ? <div className="oyi-shell-composer" data-slot="composer">{props.composer}</div> : null}
           </div>
         ) : null}

@@ -15,6 +15,8 @@ export type OyiComposerProps = {
     voiceInterim?: string;
     voiceLevels?: readonly number[] | null;
     onStartVoice?: () => void;
+    onStartLiveVoice?: () => void;
+    liveVoiceActive?: boolean;
     onStopVoice?: () => void;
     onSendVoice?: () => void;
     onCancelVoice?: () => void;
