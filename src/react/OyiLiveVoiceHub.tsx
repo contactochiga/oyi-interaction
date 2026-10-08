@@ -11,10 +11,11 @@ export function OyiLiveVoiceHub({ state, levels, onEnd, onMute, onResume }: {
 }) {
   if (state.phase === "closed") return null;
   const resume = state.phase === "muted" || state.phase === "error";
-  return <section className="oyi-live-voice-hub" aria-label="Browser Live Voice" data-phase={state.phase}>
+  const activity = state.phase === "listening" ? " · Listening" : state.phase === "speaking" ? " · Speaking" : state.phase === "muted" ? " · Muted" : "";
+  return <section className="oyi-live-voice-hub" aria-label="Browser Live Voice" data-phase={state.phase} onKeyDown={(event) => { if (event.key === "Escape") { event.stopPropagation(); onEnd(); } }}>
     <div className="oyi-live-voice-controls">
       <button type="button" className="oyi-icon-button" onClick={resume ? onResume : onMute} disabled={state.phase === "unsupported" || (resume && state.requestPending)} aria-label={resume ? "Resume live microphone" : "Mute live microphone"} aria-pressed={state.phase === "muted"}><IconMic /></button>
-      <span className="oyi-live-voice-label">Browser Live Voice</span>
+      <span className="oyi-live-voice-label">Live Voice{activity}</span>
       <button type="button" className="oyi-icon-button" onClick={onEnd} aria-label="End Live Voice"><IconClose /></button>
     </div>
     <div className="oyi-live-voice-orb"><OyiOrb size="medium" state={state.phase === "listening" ? "listening" : state.phase === "speaking" ? "responding" : state.phase === "working" ? "working" : "idle"} /></div>
